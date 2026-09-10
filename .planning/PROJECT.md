@@ -25,9 +25,9 @@ Reliable RabbitMQ message processing with configurable retry strategies that pre
 
 <!-- Current scope. Building toward these. -->
 
-- [x] Replace `guava-retrying` (com.github.rholder:guava-retrying:2.0.0) with `failsafe.dev` library — engine swapped in Phase 2 (failsafe 3.3.2 on classpath, all retry logic runs on it)
+- ✓ Replace `guava-retrying` (com.github.rholder:guava-retrying:2.0.0) with `failsafe.dev` library — engine swapped in Phase 2 (failsafe 3.3.2 on classpath, all retry logic runs on it)
 - [ ] Remove all references to `guava-retrying` (imports, dependency, version property)
-- [x] Preserve existing retry semantics: stop-after-attempt, exponential/incremental/fixed waits, time-limited stops, exception-predicate filtering, blocking (thread-sleep) execution — validated in Phase 2 (parity construction: 2*multiplier backoff, withMaxAttempts/withMaxRetries(-1), handleIf, synchronous .get())
+- ✓ Preserve existing retry semantics: stop-after-attempt, exponential/incremental/fixed waits, time-limited stops, exception-predicate filtering, blocking (thread-sleep) execution — validated in Phase 2 (parity construction: 2*multiplier backoff, withMaxAttempts/withMaxRetries(-1), handleIf, synchronous .get())
 
 ### Out of Scope
 
@@ -55,9 +55,9 @@ Reliable RabbitMQ message processing with configurable retry strategies that pre
 
 | Decision | Rationale | Outcome |
 | -------- | --------- | ------- |
-| Use failsafe.dev as replacement | Actively maintained, fluent RetryPolicy API, drop-in for guava-retrying's Retryer pattern | - Pending |
-| Preserve RetryStrategy base class shape | Consumers depend on `execute(Callable<Boolean>)` contract | - Pending |
-| Map RetryerBuilder → RetryPolicy per strategy | 1:1 strategy migration minimizes behavioral drift | - Pending |
+| Use failsafe.dev as replacement | Actively maintained, fluent RetryPolicy API, drop-in for guava-retrying's Retryer pattern | ✓ Validated Phase 2 — all retry logic runs on failsafe, tests green |
+| Preserve RetryStrategy base class shape | Consumers depend on `execute(Callable<Boolean>)` contract | ✓ Validated Phase 2 — `execute(Callable<Boolean>) throws Exception` signature byte-identical |
+| Map RetryerBuilder → RetryPolicy per strategy | 1:1 strategy migration minimizes behavioral drift | ✓ Validated Phase 2 — all 7 impls rewritten, parity construction (2*multiplier, withMaxAttempts, withMaxRetries(-1)) |
 
 ## Evolution
 
