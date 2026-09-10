@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.0.2-1
+
+- Replaced retry engine: removed `com.github.rholder:guava-retrying:2.0.0`, added `dev.failsafe:failsafe:3.3.2`.
+- **Breaking change:** Exhaustion exception type changed from guava's checked `RetryException` to failsafe's unchecked `FailsafeException` (or the raw original throwable). Consumers catching `RetryException` by type will get a compile error — see [MIGRATION.md](MIGRATION.md).
+- `RetryStrategy.execute()` signature and `throws Exception` declaration are unchanged. Synchronous blocking behavior is preserved.
+- All retry semantics (attempt counts, wait sequences, exception filtering) verified behaviorally identical via 15 parity tests on the failsafe-only tree (49 total tests green).
+- See [MIGRATION.md](MIGRATION.md) for migration instructions and version references.
+
 ## 2.0.28-14
 
 - Introduced shard ID calculator interface, with random shard id as the default implementation.
