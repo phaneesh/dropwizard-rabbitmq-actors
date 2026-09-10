@@ -8,17 +8,15 @@ import io.appform.dropwizard.actors.connectivity.RMQConnection;
 import io.appform.dropwizard.actors.observers.RMQObserver;
 import io.dropwizard.core.setup.Environment;
 import io.dropwizard.lifecycle.Managed;
-import lombok.Data;
-import lombok.SneakyThrows;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
 
 @Slf4j
-@Data
+@Getter
 public class ConnectionRegistry implements Managed {
 
     private final ConcurrentHashMap<String, RMQConnection> connections;
@@ -90,12 +88,13 @@ public class ConnectionRegistry implements Managed {
 
     @Override
     public void stop() {
-        connections.forEach(new BiConsumer<String, RMQConnection>() {
-            @SneakyThrows
-            @Override
-            public void accept(String name, RMQConnection rmqConnection) {
+        connections.forEach((name, rmqConnection) -> {
+            try {
                 rmqConnection.stop();
+            } catch (Exception e) {
+                log.error("Error stopping RMQ connection [{}]", name, e);
             }
         });
+        connections.clear();
     }
 }

@@ -105,6 +105,9 @@ public class Handler<Message> extends DefaultConsumer {
             }
         } catch (Throwable t) {
             log.error("Error processing message...", t);
+            if (!isChannelOpen()) {
+                return;
+            }
             if (errorCheckFunction.apply(t)) {
                 log.warn("Acked message due to exception: ", t);
                 getChannel().basicAck(envelope.getDeliveryTag(), false);
@@ -117,6 +120,10 @@ public class Handler<Message> extends DefaultConsumer {
         }
     }
 
+    private boolean isChannelOpen() {
+        return getChannel() != null && getChannel().isOpen();
+    }
+
     private Callable<Boolean> getHandleCallable(final Envelope envelope,
                                                 final AMQP.BasicProperties properties,
                                                 final byte[] body) throws IOException {
@@ -127,18 +134,16 @@ public class Handler<Message> extends DefaultConsumer {
 
     private long getDelayInMs(final AMQP.BasicProperties properties) {
         if (properties.getHeaders() != null
-                && properties.getHeaders().containsKey(MESSAGE_PUBLISHED_TEXT)) {
-            val publishedAt = (long) properties.getHeaders().get(MESSAGE_PUBLISHED_TEXT);
-            return Math.max(Instant.now().toEpochMilli() - publishedAt, 0);
+                && properties.getHeaders().get(MESSAGE_PUBLISHED_TEXT) instanceof Number publishedAt) {
+            return Math.max(Instant.now().toEpochMilli() - publishedAt.longValue(), 0);
         }
         return -1;
     }
 
     private boolean isExpired(final AMQP.BasicProperties properties) {
         if (properties.getHeaders() != null
-                && properties.getHeaders().containsKey(MESSAGE_EXPIRY_TEXT)) {
-            val expiresAt = (long) properties.getHeaders().get(MESSAGE_EXPIRY_TEXT);
-            return Instant.now().toEpochMilli() >= expiresAt;
+                && properties.getHeaders().get(MESSAGE_EXPIRY_TEXT) instanceof Number expiresAt) {
+            return Instant.now().toEpochMilli() >= expiresAt.longValue();
         }
         return false;
     }

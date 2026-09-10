@@ -94,11 +94,14 @@ public class RMQConnection implements Managed {
                 Preconditions.checkNotNull(config.getCertPassword(),
                         "Cert password is required if cert file path has been provided");
                 KeyStore ks = KeyStore.getInstance("JKS");
-                ks.load(new FileInputStream(config.getCertStorePath()), config.getCertPassword().toCharArray());
+                try (FileInputStream certStream = new FileInputStream(config.getCertStorePath())) {
+                    ks.load(certStream, config.getCertPassword().toCharArray());
+                }
 
                 KeyStore tks = KeyStore.getInstance("JKS");
-                tks.load(new FileInputStream(config.getServerCertStorePath()),
-                        config.getServerCertPassword().toCharArray());
+                try (FileInputStream serverCertStream = new FileInputStream(config.getServerCertStorePath())) {
+                    tks.load(serverCertStream, config.getServerCertPassword().toCharArray());
+                }
                 SSLContext c = SSLContexts.custom()
                         .setProtocol("TLSv1.2")
                         .loadTrustMaterial(tks, new TrustSelfSignedStrategy())

@@ -27,7 +27,6 @@ import io.dropwizard.validation.ValidationMethod;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -135,15 +134,7 @@ public class ActorConfig {
             return true;
         }
 
-        AtomicBoolean validConnectionNames = new AtomicBoolean(true);
-
-        getConnectionNames().forEach(connectionName -> {
-            if (Constants.DEFAULT_CONNECTIONS.contains(connectionName)) {
-                validConnectionNames.set(false);
-            }
-        });
-
-        return validConnectionNames.get();
+        return getConnectionNames().stream().noneMatch(Constants.DEFAULT_CONNECTIONS::contains);
     }
 
     private Set<String> getConnectionNames() {

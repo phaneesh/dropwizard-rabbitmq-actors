@@ -51,11 +51,11 @@ public abstract class BaseActor<Message> implements Managed {
     private final Set<Class<?>> droppedExceptionTypes;
 
     protected BaseActor(UnmanagedPublisher<Message> publishActor, Set<Class<?>> droppedExceptionTypes) {
-        this(publishActor, null, droppedExceptionTypes);
+        this(publishActor, null, droppedExceptionTypes == null ? Collections.emptySet() : droppedExceptionTypes);
     }
 
     protected BaseActor(UnmanagedConsumer<Message> consumeActor, Set<Class<?>> droppedExceptionTypes) {
-        this(null, consumeActor, droppedExceptionTypes);
+        this(null, consumeActor, droppedExceptionTypes == null ? Collections.emptySet() : droppedExceptionTypes);
     }
 
     protected BaseActor(UnmanagedPublisher<Message> produceActor,

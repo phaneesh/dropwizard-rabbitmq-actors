@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import static io.appform.dropwizard.actors.common.Constants.MESSAGE_EXPIRY_TEXT;
 import static io.appform.dropwizard.actors.common.Constants.MESSAGE_PUBLISHED_TEXT;
@@ -33,7 +34,7 @@ public class UnmanagedPublisher<Message> {
     private final ShardIdCalculator<Message> shardIdCalculator;
     private final String queueName;
     private final RMQObserver observer;
-    private Channel publishChannel;
+    private volatile Channel publishChannel;
 
     public UnmanagedPublisher(
             String name,
@@ -161,8 +162,13 @@ public class UnmanagedPublisher<Message> {
             return properties;
         }
         val expiresAt = Instant.now().toEpochMilli() + expiryInMs;
-        return new AMQP.BasicProperties.Builder()
-                .headers(ImmutableMap.of(MESSAGE_EXPIRY_TEXT, expiresAt))
+        final Map<String, Object> headers = new HashMap<>();
+        if (properties.getHeaders() != null) {
+            headers.putAll(properties.getHeaders());
+        }
+        headers.put(MESSAGE_EXPIRY_TEXT, expiresAt);
+        return properties.builder()
+                .headers(Collections.unmodifiableMap(headers))
                 .build();
     }
 
