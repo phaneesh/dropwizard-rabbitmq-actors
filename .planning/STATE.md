@@ -1,17 +1,17 @@
 # Project State
 
-**Last updated:** 2025-09-19
-**Phase:** Roadmap created — ready for Phase 1 planning
+**Last updated:** 2026-09-10
+**Phase:** Phase 1 context gathered — ready for planning
 
 ## Current Phase
 
-**Phase 1: Add failsafe dependency** — not started.
+**Phase 1: Add failsafe dependency** — context gathered, ready for planning.
 
 ## Phase Status
 
 | Phase | Name | Status |
 | ----- | ---- | ------ |
-| Phase 1 | Add failsafe dependency | Not started |
+| Phase 1 | Add failsafe dependency | Context gathered |
 | Phase 2 | Rewrite retry engine (base + all seven impls, atomic) | Blocked by Phase 1 |
 | Phase 3 | Remove guava-retrying and verify parity | Blocked by Phase 2 |
 | Phase 4 | Release documentation | Blocked by Phase 3 |
@@ -30,11 +30,11 @@
 
 ## Blockers
 
-None. Roadmap is created; Phase 1 is ready to plan.
+None. Phase 1 context captured; ready to plan.
 
 ## Next Action
 
-Plan Phase 1: add `dev.failsafe:failsafe:3.3.2` to `pom.xml`. This is a single-dependency add with no source changes — standard Maven territory, no research phase needed.
+Plan Phase 1: add `dev.failsafe:failsafe:3.3.2` to `pom.xml` (version property + compile-scope dependency adjacent to guava-retrying). Context in `.planning/phases/01-add-failsafe-dependency/01-CONTEXT.md`.
 
 ## Notes
 
