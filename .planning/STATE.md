@@ -1,18 +1,18 @@
 # Project State
 
 **Last updated:** 2026-09-10
-**Phase:** Phase 1 context gathered — ready for planning
+**Phase:** Phase 2 context gathered — ready for planning
 
 ## Current Phase
 
-**Phase 1: Add failsafe dependency** — context gathered, ready for planning.
+**Phase 2: Rewrite retry engine (base + all seven impls, atomic)** — context gathered, ready for planning. Phase 1 (add failsafe dependency) complete.
 
 ## Phase Status
 
 | Phase | Name | Status |
 | ----- | ---- | ------ |
-| Phase 1 | Add failsafe dependency | Context gathered |
-| Phase 2 | Rewrite retry engine (base + all seven impls, atomic) | Blocked by Phase 1 |
+| Phase 1 | Add failsafe dependency | Complete |
+| Phase 2 | Rewrite retry engine (base + all seven impls, atomic) | Context gathered |
 | Phase 3 | Remove guava-retrying and verify parity | Blocked by Phase 2 |
 | Phase 4 | Release documentation | Blocked by Phase 3 |
 
@@ -30,11 +30,11 @@
 
 ## Blockers
 
-None. Phase 1 context captured; ready to plan.
+None. Phase 2 context captured; ready to plan.
 
 ## Next Action
 
-Plan Phase 1: add `dev.failsafe:failsafe:3.3.2` to `pom.xml` (version property + compile-scope dependency adjacent to guava-retrying). Context in `.planning/phases/01-add-failsafe-dependency/01-CONTEXT.md`.
+Plan Phase 2: rewrite `RetryStrategy` base (`Retryer<Boolean>` → `RetryPolicy<Boolean>`) and all 7 impl builder chains atomically. Context in `.planning/phases/02-rewrite-retry-engine/02-CONTEXT.md`.
 
 ## Notes
 
