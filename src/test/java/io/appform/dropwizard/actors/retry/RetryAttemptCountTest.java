@@ -18,6 +18,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -142,5 +143,25 @@ class RetryAttemptCountTest {
         var strategy = new CountLimitedFixedWaitRetryStrategy(config);
         assertThrows(Exception.class, () -> strategy.execute(alwaysFails));
         assertEquals(3, count.get());
+    }
+
+    @Test
+    void falseReturnIsSuccessNotRetried() throws Exception {
+        // PAR-09: Boolean return is a success signal. A Callable returning false
+        // must NOT trigger a retry (no handleResult(false) in any policy).
+        var config = CountLimitedFixedWaitRetryConfig.builder()
+                .maxAttempts(3)
+                .waitTime(Duration.milliseconds(1))
+                .retriableExceptions(null)
+                .build();
+        AtomicInteger count = new AtomicInteger(0);
+        Callable<Boolean> returnsFalse = () -> {
+            count.incrementAndGet();
+            return false;
+        };
+        var strategy = new CountLimitedFixedWaitRetryStrategy(config);
+        boolean result = strategy.execute(returnsFalse);
+        assertEquals(1, count.get(), "false return must be treated as success, not retried");
+        assertFalse(result);
     }
 }

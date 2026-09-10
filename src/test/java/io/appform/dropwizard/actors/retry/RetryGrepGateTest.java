@@ -61,6 +61,20 @@ class RetryGrepGateTest {
         }
     }
 
+    @Test
+    void noHandleResultInRetryPackage() throws IOException {
+        // PAR-09: Boolean return is a success signal; handleResult(false) must not appear
+        try (Stream<Path> files = Files.walk(RETRY_DIR)) {
+            files
+                    .filter(p -> p.toString().endsWith(".java"))
+                    .forEach(p -> {
+                        String content = read(p);
+                        assertFalse(content.contains("handleResult"),
+                                "handleResult found in " + p + " — false return must be a success signal, not a retry trigger");
+                    });
+        }
+    }
+
     private static String read(Path p) {
         try {
             return Files.readString(p);
