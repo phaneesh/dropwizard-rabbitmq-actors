@@ -92,6 +92,12 @@ A like-for-like retry-engine swap: replace the unmaintained `com.github.rholder:
 
 **Exit gate:** `mvn test` green on failsafe-only tree; guava-retrying fully removed; parity + grep-gate tests in place and passing.
 
+**Plans:** 2 plans in 2 waves
+
+Plans:
+- [ ] 03-01-PLAN.md — Remove guava-retrying from pom.xml and verify failsafe-only tree
+- [ ] 03-02-PLAN.md — Write parity tests (timing, attempt counts, grep gate)
+
 ---
 
 ## Phase 4: Release documentation
