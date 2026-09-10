@@ -95,6 +95,7 @@ A like-for-like retry-engine swap: replace the unmaintained `com.github.rholder:
 **Plans:** 2 plans in 2 waves
 
 Plans:
+
 - [ ] 03-01-PLAN.md — Remove guava-retrying from pom.xml and verify failsafe-only tree
 - [ ] 03-02-PLAN.md — Write parity tests (timing, attempt counts, grep gate)
 
@@ -119,6 +120,12 @@ Plans:
 
 **Exit gate:** Changelog + migration note written and consistent with the verified Phase 3 behavior.
 
+**Plans:** 1 plan in 1 wave
+
+Plans:
+
+- [ ] 04-01-PLAN.md — Write changelog entry, MIGRATION.md, and README pointer
+
 ---
 
 ## Phase Ordering Rationale
@@ -133,13 +140,13 @@ Plans:
 | Requirement | Phase | Status |
 | ----------- | ----- | ------ |
 | DEP-01 | Phase 1 | Complete |
-| DEP-02 | Phase 3 | Pending |
-| DEP-03 | Phase 3 | Pending |
+| DEP-02 | Phase 3 | Complete |
+| DEP-03 | Phase 3 | Complete |
 | ENG-01 | Phase 2 | Complete |
 | ENG-02 | Phase 2 | Complete |
 | ENG-03 | Phase 2 | Complete |
 | ENG-04 | Phase 2 | Complete |
-| ENG-05 | Phase 3 | Pending |
+| ENG-05 | Phase 3 | Complete |
 | PAR-01 | Phase 2 | Complete |
 | PAR-02 | Phase 2 | Complete |
 | PAR-03 | Phase 2 | Complete |
@@ -149,10 +156,10 @@ Plans:
 | PAR-07 | Phase 2 | Complete |
 | PAR-08 | Phase 2 | Complete |
 | PAR-09 | Phase 2 | Complete |
-| VER-01 | Phase 3 | Pending |
-| VER-02 | Phase 3 | Pending |
-| VER-03 | Phase 3 | Pending |
-| VER-04 | Phase 3 | Pending |
+| VER-01 | Phase 3 | Complete |
+| VER-02 | Phase 3 | Complete |
+| VER-03 | Phase 3 | Complete |
+| VER-04 | Phase 3 | Complete |
 | DOC-01 | Phase 4 | Pending |
 | DOC-02 | Phase 4 | Pending |
 

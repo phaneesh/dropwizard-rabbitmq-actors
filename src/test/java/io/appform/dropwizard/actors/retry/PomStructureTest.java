@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * DEP-01: pom.xml structural conventions for the failsafe dependency.
- * Reads pom.xml as a string and asserts on its content, matching the
- * grep-gate test idiom (no DOM parsing).
+ * DEP-02/DEP-03/ENG-05: pom.xml must not reference guava-retrying or
+ * com.github.rholder. Reads pom.xml as a string and asserts on its content,
+ * matching the grep-gate test idiom (no DOM parsing).
  */
 class PomStructureTest {
 
@@ -46,6 +47,27 @@ class PomStructureTest {
         String pom = read(POM);
         assertFalse(pom.contains("net.jodah"),
                 "pom.xml must not reference the deprecated net.jodah groupId");
+    }
+
+    @Test
+    void noGuavaRetryingDependencyInPom() {
+        String pom = read(POM);
+        assertFalse(pom.contains("guava-retrying"),
+                "pom.xml must not contain a guava-retrying dependency block");
+    }
+
+    @Test
+    void noGuavaRetryingVersionPropertyInPom() {
+        String pom = read(POM);
+        assertFalse(pom.contains("guava-retrying.version"),
+                "pom.xml must not declare a guava-retrying.version property");
+    }
+
+    @Test
+    void noGuavaRetryingRefsInPom() {
+        String pom = read(POM);
+        assertFalse(pom.contains("com.github.rholder"),
+                "pom.xml must not reference com.github.rholder (guava-retrying groupId)");
     }
 
     private static String read(Path p) {
