@@ -25,9 +25,9 @@ Reliable RabbitMQ message processing with configurable retry strategies that pre
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] Replace `guava-retrying` (com.github.rholder:guava-retrying:2.0.0) with `failsafe.dev` library
+- [x] Replace `guava-retrying` (com.github.rholder:guava-retrying:2.0.0) with `failsafe.dev` library — engine swapped in Phase 2 (failsafe 3.3.2 on classpath, all retry logic runs on it)
 - [ ] Remove all references to `guava-retrying` (imports, dependency, version property)
-- [ ] Preserve existing retry semantics: stop-after-attempt, exponential/incremental/fixed waits, time-limited stops, exception-predicate filtering, blocking (thread-sleep) execution
+- [x] Preserve existing retry semantics: stop-after-attempt, exponential/incremental/fixed waits, time-limited stops, exception-predicate filtering, blocking (thread-sleep) execution — validated in Phase 2 (parity construction: 2*multiplier backoff, withMaxAttempts/withMaxRetries(-1), handleIf, synchronous .get())
 
 ### Out of Scope
 
@@ -79,4 +79,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2025-09-19 after initialization*
+*Last updated: 2026-09-10 after Phase 2 completion*

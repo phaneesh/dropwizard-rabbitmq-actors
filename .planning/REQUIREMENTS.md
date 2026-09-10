@@ -78,23 +78,23 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 | ----------- | --------- | ------- |
-| DEP-01 | Phase 1 | Pending |
+| DEP-01 | Phase 1 | Complete |
 | DEP-02 | Phase 3 | Pending |
 | DEP-03 | Phase 3 | Pending |
-| ENG-01 | Phase 2 | Pending |
-| ENG-02 | Phase 2 | Pending |
-| ENG-03 | Phase 2 | Pending |
-| ENG-04 | Phase 2 | Pending |
+| ENG-01 | Phase 2 | Complete |
+| ENG-02 | Phase 2 | Complete |
+| ENG-03 | Phase 2 | Complete |
+| ENG-04 | Phase 2 | Complete |
 | ENG-05 | Phase 3 | Pending |
-| PAR-01 | Phase 2 | Pending |
-| PAR-02 | Phase 2 | Pending |
-| PAR-03 | Phase 2 | Pending |
-| PAR-04 | Phase 2 | Pending |
-| PAR-05 | Phase 2 | Pending |
-| PAR-06 | Phase 2 | Pending |
-| PAR-07 | Phase 2 | Pending |
-| PAR-08 | Phase 2 | Pending |
-| PAR-09 | Phase 2 | Pending |
+| PAR-01 | Phase 2 | Complete |
+| PAR-02 | Phase 2 | Complete |
+| PAR-03 | Phase 2 | Complete |
+| PAR-04 | Phase 2 | Complete |
+| PAR-05 | Phase 2 | Complete |
+| PAR-06 | Phase 2 | Complete |
+| PAR-07 | Phase 2 | Complete |
+| PAR-08 | Phase 2 | Complete |
+| PAR-09 | Phase 2 | Complete |
 | VER-01 | Phase 3 | Pending |
 | VER-02 | Phase 3 | Pending |
 | VER-03 | Phase 3 | Pending |
