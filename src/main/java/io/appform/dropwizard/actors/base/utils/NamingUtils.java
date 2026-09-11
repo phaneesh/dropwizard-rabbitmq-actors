@@ -9,7 +9,6 @@ import io.appform.dropwizard.actors.connectivity.strategy.ConnectionIsolationStr
 import io.appform.dropwizard.actors.connectivity.strategy.DefaultConnectionStrategy;
 import io.appform.dropwizard.actors.connectivity.strategy.SharedConnectionStrategy;
 import io.appform.dropwizard.actors.utils.CommonUtils;
-import javax.validation.Valid;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

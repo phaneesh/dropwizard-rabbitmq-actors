@@ -17,35 +17,23 @@ import io.appform.dropwizard.actors.junit.extension.RabbitMQExtension;
 import io.appform.dropwizard.actors.metrics.RMQMetricObserver;
 import io.appform.dropwizard.actors.retry.RetryStrategyFactory;
 import io.appform.dropwizard.actors.utils.*;
-
 import io.dropwizard.core.Configuration;
 import io.dropwizard.core.setup.Environment;
 import io.dropwizard.jackson.Jackson;
-
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
+import jakarta.validation.Validation;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import okhttp3.*;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testcontainers.containers.RabbitMQContainer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.concurrent.Executors;
-
-import jakarta.validation.Validation;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import okhttp3.Credentials;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testcontainers.containers.RabbitMQContainer;
 
 import static io.appform.dropwizard.actors.utils.RMQTestUtils.RABBITMQ_MANAGEMENT_PORT;
 
@@ -98,7 +86,7 @@ public class NamespacedQueuesTest {
 
         ActorConfig actorConfig = new ActorConfig();
         actorConfig.setExchange("test-exchange-0");
-        UnmanagedPublisher publisher = new UnmanagedPublisher<>(queueName, actorConfig, connection, null);
+        UnmanagedPublisher publisher = new UnmanagedPublisher<>(NamingUtils.queueName(actorConfig.getPrefix(), queueName), actorConfig, connection, null);
         publisher.start();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -136,7 +124,7 @@ public class NamespacedQueuesTest {
 
         ActorConfig actorConfig = new ActorConfig();
         actorConfig.setExchange("test-exchange-1");
-        UnmanagedPublisher publisher = new UnmanagedPublisher<>(queueName, actorConfig, connection, null);
+        UnmanagedPublisher publisher = new UnmanagedPublisher<>(NamingUtils.queueName(actorConfig.getPrefix(), queueName), actorConfig, connection, null);
         publisher.start();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -171,7 +159,7 @@ public class NamespacedQueuesTest {
 
         ActorConfig actorConfig = new ActorConfig();
         actorConfig.setExchange("test-exchange-2");
-        UnmanagedPublisher publisher = new UnmanagedPublisher<>(queueName, actorConfig, connection, null);
+        UnmanagedPublisher publisher = new UnmanagedPublisher<>(NamingUtils.queueName(actorConfig.getPrefix(), queueName), actorConfig, connection, null);
         publisher.start();
 
         Thread.sleep(4_000);
