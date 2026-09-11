@@ -1,15 +1,7 @@
 package io.appform.dropwizard.actors.retry;
 
-import io.appform.dropwizard.actors.retry.config.CountLimitedExponentialWaitRetryConfig;
-import io.appform.dropwizard.actors.retry.config.CountLimitedFixedWaitRetryConfig;
-import io.appform.dropwizard.actors.retry.config.CountLimitedIncrementalWaitRetryConfig;
-import io.appform.dropwizard.actors.retry.config.NoRetryConfig;
-import io.appform.dropwizard.actors.retry.config.TimeLimitedFixedWaitRetryConfig;
-import io.appform.dropwizard.actors.retry.impl.CountLimitedExponentialWaitRetryStrategy;
-import io.appform.dropwizard.actors.retry.impl.CountLimitedFixedWaitRetryStrategy;
-import io.appform.dropwizard.actors.retry.impl.CountLimitedIncrementalWaitRetryStrategy;
-import io.appform.dropwizard.actors.retry.impl.NoRetryStrategy;
-import io.appform.dropwizard.actors.retry.impl.TimeLimitedFixedWaitRetryStrategy;
+import io.appform.dropwizard.actors.retry.config.*;
+import io.appform.dropwizard.actors.retry.impl.*;
 import io.dropwizard.util.Duration;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +9,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * VER-03: Asserts exact attempt counts for all strategy types by constructing
